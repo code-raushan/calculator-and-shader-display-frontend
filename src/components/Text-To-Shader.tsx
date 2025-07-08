@@ -77,7 +77,7 @@ const TextToShader = () => {
         <button
           onClick={generateShader}
           disabled={isLoading}
-          className="p-2 bg-cyan-500 text-stone-900 font-bold rounded hover:bg-cyan-400 disabled:bg-stone-500"
+          className="p-2 bg-cyan-500 text-white font-bold rounded hover:bg-cyan-400 disabled:bg-stone-500"
         >
           {isLoading ? "Generating..." : "Generate"}
         </button>
