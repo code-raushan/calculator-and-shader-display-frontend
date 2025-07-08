@@ -33,11 +33,14 @@ const TextToShader = () => {
     setVertexShaderCode("");
     setFragmentShaderCode("");
     try {
-      const response = await fetch("http://localhost:4000/api/shader", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ prompt }),
-      });
+      const response = await fetch(
+        "https://text-to-shader-backend.fly.dev/api/shader",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ prompt }),
+        }
+      );
       if (!response.ok) {
         const errorData = await response.json();
         throw new Error(errorData.error || "Failed to generate shader");
