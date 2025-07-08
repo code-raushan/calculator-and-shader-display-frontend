@@ -22,7 +22,7 @@ export default function App() {
             className={`px-8 py-2 rounded-lg border-2 mx-2 transition-colors duration-200 focus:outline-none ${
               selectedTab === tab.key
                 ? "border-blue-500 bg-blue-500 text-white"
-                : "border-gray-300 bg-white text-white hover:bg-gray-100"
+                : "border-gray-300 bg-white text-gray-400 hover:bg-gray-100"
             }`}
           >
             {tab.label}
