@@ -1,69 +1,124 @@
-# React + TypeScript + Vite
+# Calculator and Shader Display Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A React-based frontend application featuring a Rust WebAssembly calculator and a WebGL shader renderer with AI-powered shader generation.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+### 🧮 Calculator (Rust WASM)
+- **Rust WebAssembly Integration**: High-performance mathematical operations
 
-## Expanding the ESLint configuration
+### 🎨 Text-to-Shader (WebGL + AI)
+- **AI-Powered Shader Generation**: Uses Groq and Llama-4-Scout to generate GLSL shaders from text descriptions with shader code served from `Elixir/Phoenix Backend`.
+-
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## Project Structure
 
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```
+calculator-and-shader-display-frontend/
+├── calculator/                    # Rust WASM Calculator
+│   ├── Cargo.toml                # Rust dependencies
+│   ├── Cargo.lock                # Locked dependencies
+│   ├── pkg/                      # Compiled WASM output
+│   └── src/
+│       └── lib.rs                # Rust calculator logic
+├── src/
+│   ├── components/
+│   │   ├── calculator/           # Calculator UI Components
+│   │   │   ├── Display.tsx       # Calculator display
+│   │   │   └── Keypad.tsx        # Calculator buttons
+│   │   ├── Calculator.tsx        # Main calculator component
+│   │   ├── text-to-shader/       # Shader Components
+│   │   │   └── ShaderCanvas.tsx  # WebGL shader renderer
+│   │   └── Text-To-Shader.tsx    # Main shader component
+│   ├── App.tsx                   # Main application component
+│   ├── main.tsx                  # Application entry point
+│   └── index.css                 # Global styles
+├── public/                       # Static assets
+├── package.json                  # Node.js dependencies
+├── vite.config.ts               # Vite configuration
+└── tsconfig.json                # TypeScript configuration
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## Technology Stack
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+### Frontend
+- **React 18** with TypeScript
+- **Vite** for fast development and building
+- **Tailwind CSS** for styling
+- **WebGL** for shader rendering
 
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+### Backend Integration
+- **Elixir** backend for shader generation
+- **Groq API** for AI-powered code generation
+- **Llama-4-Scout** model for GLSL shader creation
+
+### Rust WASM
+- **Rust** for high-performance calculator logic
+- **wasm-pack** for WebAssembly compilation
+- **wasm-bindgen** for JavaScript interop
+
+## Getting Started
+
+### Installation
+
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/code-raushan/calculator-and-shader-display-frontend.git
+   cd calculator-and-shader-display-frontend
+   ```
+
+2. **Install dependencies**
+   ```bash
+   pnpm install
+   ```
+
+3. **Build Rust WASM calculator**
+   ```bash
+   cd calculator
+   wasm-pack build --target web
+   cd ..
+   ```
+
+4. **Start development server**
+   ```bash
+   pnpm dev
+   ```
+
+### Building for Production
+
+```bash
+# Build Rust WASM
+cd calculator && wasm-pack build --target web --release && cd ..
+
+# Build frontend
+pnpm build
 ```
+
+## Usage
+
+### Calculator
+- Use the calculator interface for mathematical operations
+- All calculations are performed by Rust WASM for optimal performance
+- Supports standard arithmetic and scientific functions
+
+### Text-to-Shader
+1. **Enter a description** of the visual effect you want (e.g., "flowing lava", "rotating cube")
+2. **Click "Generate"** to send the prompt to the AI backend
+3. **View the result** in the WebGL canvas
+4. **Examine the code** in the separate vertex and fragment shader panels
+5. **Test with examples** using the "Load Example Shader" button
+
+## API Endpoints
+
+### Shader Generation
+- **POST** `/api/shader`
+- **Body**: `{ "prompt": "your shader description" }`
+- **Response**: 
+  ```json
+  {
+    "vertex_shader_code": "...",
+    "fragment_shader_code": "..."
+  }
+  ```
+
+  Live Deployment at [Fly.io]("https://calculator-and-shader-display-frontend.fly.dev/)
