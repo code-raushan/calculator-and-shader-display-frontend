@@ -117,9 +117,99 @@ impl Calculator {
 
 #[cfg(test)]
 mod tests {
+    use super::*;
 
     #[test]
-    fn it_works() {
-        println!("Tests")
+    fn test_new_calculator() {
+        let calc = Calculator::new();
+        assert_eq!(calc.get_current_display(), "0");
+    }
+
+    #[test]
+    fn test_handle_number() {
+        let mut calc = Calculator::new();
+        calc.handle_number("5");
+        assert_eq!(calc.get_current_display(), "5");
+        
+        calc.handle_number("3");
+        assert_eq!(calc.get_current_display(), "53");
+    }
+
+    #[test]
+    fn test_handle_clear() {
+        let mut calc = Calculator::new();
+        calc.handle_number("123");
+        calc.handle_clear();
+        assert_eq!(calc.get_current_display(), "0");
+    }
+
+    #[test]
+    fn test_addition() {
+        let mut calc = Calculator::new();
+        calc.handle_number("5");
+        calc.handle_operator('+');
+        calc.handle_number("3");
+        calc.handle_equals();
+        assert_eq!(calc.get_current_display(), "8");
+    }
+
+    #[test]
+    fn test_subtraction() {
+        let mut calc = Calculator::new();
+        calc.handle_number("10");
+        calc.handle_operator('-');
+        calc.handle_number("3");
+        calc.handle_equals();
+        assert_eq!(calc.get_current_display(), "7");
+    }
+
+    #[test]
+    fn test_multiplication() {
+        let mut calc = Calculator::new();
+        calc.handle_number("6");
+        calc.handle_operator('*');
+        calc.handle_number("7");
+        calc.handle_equals();
+        assert_eq!(calc.get_current_display(), "42");
+    }
+
+    #[test]
+    fn test_division() {
+        let mut calc = Calculator::new();
+        calc.handle_number("15");
+        calc.handle_operator('/');
+        calc.handle_number("3");
+        calc.handle_equals();
+        assert_eq!(calc.get_current_display(), "5");
+    }
+
+    #[test]
+    fn test_division_by_zero() {
+        let mut calc = Calculator::new();
+        calc.handle_number("10");
+        calc.handle_operator('/');
+        calc.handle_number("0");
+        calc.handle_equals();
+        assert_eq!(calc.get_current_display(), "0");
+    }
+
+    #[test]
+    fn test_continuous_operations() {
+        let mut calc = Calculator::new();
+        calc.handle_number("5");
+        calc.handle_operator('+');
+        calc.handle_number("3");
+        calc.handle_operator('*');
+        calc.handle_number("2");
+        calc.handle_equals();
+        assert_eq!(calc.get_current_display(), "16");
+    }
+
+    #[test]
+    fn test_percentage() {
+        let mut calc = Calculator::new();
+        calc.handle_number("50");
+        calc.handle_percentage();
+        assert_eq!(calc.get_current_display(), "0.5");
     }
 }
