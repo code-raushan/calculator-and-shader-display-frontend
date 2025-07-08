@@ -7,8 +7,10 @@ const TABS = [
   { label: "Text-to-Shader", key: "textToShader" },
 ];
 
+type Tabs = "calculator" | "textToShader";
+
 export default function App() {
-  const [selectedTab, setSelectedTab] = useState("calculator");
+  const [selectedTab, setSelectedTab] = useState<Tabs>("calculator");
 
   return (
     <div className="flex flex-col min-h-screen w-screen bg-gray-900">
@@ -16,7 +18,7 @@ export default function App() {
         {TABS.map((tab) => (
           <button
             key={tab.key}
-            onClick={() => setSelectedTab(tab.key)}
+            onClick={() => setSelectedTab(tab.key as Tabs)}
             className={`px-8 py-2 rounded-lg border-2 mx-2 transition-colors duration-200 focus:outline-none ${
               selectedTab === tab.key
                 ? "border-blue-500 bg-blue-500 text-white"
