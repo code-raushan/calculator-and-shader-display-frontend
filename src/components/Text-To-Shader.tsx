@@ -67,7 +67,7 @@ const TextToShader = () => {
       <h2 className="text-2xl font-bold text-cyan-400">Text-to-Shader</h2>
       <p className="text-stone-300">
         Describe a visual effect. Your prompt will be sent to an Elixir backend,
-        which uses Groq and Llama3 to generate shader code.
+        which uses Groq and Llama-4-Scout model to generate shader code.
       </p>
       <div className="flex items-center space-x-2">
         <input
