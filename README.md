@@ -5,7 +5,7 @@ A React-based frontend application featuring a Rust WebAssembly calculator and a
 ## Features
 
 ### 🧮 Calculator (Rust WASM)
-- **Rust WebAssembly Integration**: High-performance mathematical operations
+- **Rust WebAssembly Integration**
 
 ### 🎨 Text-to-Shader (WebGL + AI)
 - **AI-Powered Shader Generation**: Uses Groq and Llama-4-Scout to generate GLSL shaders from text descriptions with shader code served from `Elixir/Phoenix Backend`.
@@ -42,7 +42,7 @@ calculator-and-shader-display-frontend/
 ## Technology Stack
 
 ### Frontend
-- **React 18** with TypeScript
+- **React 19** with TypeScript
 - **Vite** for fast development and building
 - **Tailwind CSS** for styling
 - **WebGL** for shader rendering
